@@ -19,7 +19,6 @@
     "expo-task-manager": "~11.0.1",
     "react": "18.1.0",
     "react-native": "0.70.5",
-    "react-native-permissions": "^3.6.1",
     "react-native-snowboy": "^0.0.7",
     "react-native-voice": "^0.3.0"
   },
