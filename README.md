@@ -25,14 +25,14 @@
 
 ```
 THE APP FLOW
-this app is using a few different components to handle voice commands. Here's how the flow of the app seems to work:
 
-The main component, App, is rendered.
-Within App, the MicrophonePrompt component is rendered. This component is responsible for requesting microphone permission from the user and handling any errors that might occur while requesting permission.
-If the user grants permission, the MicrophonePermissionChecker component will render the VoiceCommandSelector component.
-The VoiceCommandSelector component uses the react-native-voice library to listen for voice input. When it detects speech, it sends the recognized text to the CommandList component.
-The CommandList component is a list of available voice commands that the app can respond to. It checks the recognized text against a list of known commands and runs the appropriate code for each command.
-In addition to these components, it looks like the app also has a CloseApp component that uses the Snowboy library to listen for the command "close app" and close the app if it is detected. It also has an OpenApp component that uses the react-native-snowboy library to listen for the command "open app" and open the app if it is detected.
+The app is launched and the App component is rendered.
+The App component renders the MicrophonePrompt component and the VoiceCommandSelector component.
+The MicrophonePrompt component checks if the app has permission to access the microphone. If permission has been granted, it will render its children (in this case, the VoiceCommandSelector component). If permission has not been granted, it will prompt the user to grant permission.
+The VoiceCommandSelector component has a button that allows the user to start or stop listening for voice commands. When the user starts listening, the component uses the react-native-voice library to recognize speech and passes the recognized speech to the CommandList component.
+The CommandList component receives the recognized speech and checks for a matching command in its startListening function. If it finds a matching command, it will render the corresponding component. In this case, if the recognized speech is "close app", it will render the CloseApp component.
+The CloseApp component will close the app on Android devices by calling the BackHandler.exitApp() method, and on iOS devices it will show an alert message asking the user to press the home button to close the app.
+
 ```
 
 
