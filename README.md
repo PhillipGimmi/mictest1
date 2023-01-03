@@ -1,5 +1,26 @@
 # mictest1
 
+./AndroidManifest.xml
+./App.js
+./app.json
+./assets/adaptive-icon.png
+./assets/favicon.png
+./assets/icon.png
+./assets/splash.png
+./babel.config.js
+./build.gradle
+./Components/CommandList/commands/closeApp.jsx
+./Components/CommandList/commands/openApp.jsx
+./Components/CommandList/index.jsx
+./Components/GrantPermissionButton/index.jsx
+./Components/MicrophonePrompt/index.jsx
+./Components/VoiceCommandSelector/index.jsx
+./Components/VoiceDetector/index.jsx
+./Info.plist
+./package-lock.json
+./package.json
+./settings.gradle
+
 The App component is a functional component in a React Native app that is designed to use the device's microphone to record audio. It consists of a single View element that contains the MicrophonePrompt component and the VoiceCommandSelector component as children.
 
 The View element is a container that is used to lay out and style the components that are rendered inside it. In this case, the View element is being used as a simple container for the MicrophonePrompt and VoiceCommandSelector components.
