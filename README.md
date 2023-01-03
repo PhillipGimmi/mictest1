@@ -1,5 +1,6 @@
 # mictest1
 
+```
 ./AndroidManifest.xml
 ./App.js
 ./app.json
@@ -20,6 +21,7 @@
 ./package-lock.json
 ./package.json
 ./settings.gradle
+```
 
 The App component is a functional component in a React Native app that is designed to use the device's microphone to record audio. It consists of a single View element that contains the MicrophonePrompt component and the VoiceCommandSelector component as children.
 
