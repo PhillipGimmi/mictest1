@@ -1,0 +1,4 @@
+dependencies {
+    // other dependencies here
+    implementation project(':react-native-permissions')
+}

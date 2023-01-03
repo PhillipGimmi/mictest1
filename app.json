@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "mictest",
     "name": "mictest",
     "slug": "mictest",
     "version": "1.0.0",
@@ -18,7 +19,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.mictest"
     },
     "android": {
       "adaptiveIcon": {

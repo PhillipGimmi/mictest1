@@ -1,20 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import MicrophonePromptButton from './Components/GrantPermissionButton';
+import MicrophonePrompt from './Components/GrantPermissionButton';
+import MicrophonePermissionChecker from './Components/MicrophonePrompt';
+import VoiceCommandSelector from './Components/VoiceCommandSelector';
 
-export default function App() {
+
+const App = () => {
+  useEffect(() => {
+    // Perform any necessary side effects here
+  }, []); // empty array means the effect only runs on mount
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <>
+    <MicrophonePrompt/>
+    <MicrophonePermissionChecker>
+      <VoiceCommandSelector />
+      < MicrophonePromptButton/>
+    </MicrophonePermissionChecker>
+  </>);
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
