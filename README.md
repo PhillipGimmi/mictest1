@@ -23,6 +23,19 @@
 ./settings.gradle
 ```
 
+```
+THE APP FLOW
+this app is using a few different components to handle voice commands. Here's how the flow of the app seems to work:
+
+The main component, App, is rendered.
+Within App, the MicrophonePrompt component is rendered. This component is responsible for requesting microphone permission from the user and handling any errors that might occur while requesting permission.
+If the user grants permission, the MicrophonePermissionChecker component will render the VoiceCommandSelector component.
+The VoiceCommandSelector component uses the react-native-voice library to listen for voice input. When it detects speech, it sends the recognized text to the CommandList component.
+The CommandList component is a list of available voice commands that the app can respond to. It checks the recognized text against a list of known commands and runs the appropriate code for each command.
+In addition to these components, it looks like the app also has a CloseApp component that uses the Snowboy library to listen for the command "close app" and close the app if it is detected. It also has an OpenApp component that uses the react-native-snowboy library to listen for the command "open app" and open the app if it is detected.
+```
+
+
 The App component is a functional component in a React Native app that is designed to use the device's microphone to record audio. It consists of a single View element that contains the MicrophonePrompt component and the VoiceCommandSelector component as children.
 
 The View element is a container that is used to lay out and style the components that are rendered inside it. In this case, the View element is being used as a simple container for the MicrophonePrompt and VoiceCommandSelector components.
@@ -69,11 +82,4 @@ The CommandList component also has a default case in the switch statement, which
 The CommandList component is designed to be used in conjunction with the VoiceCommandSelector component, which is responsible for starting and stopping the speech recognition process. When the app recognizes a voice command, it is passed to the CommandList component via the startListening function, which determines which component to render based on the value of the command.
 This code defines a CloseApp component in React Native that uses the Snowboy hotword detection library to listen for the command "close app" and then closes the app when it is spoken. It does this by using the Snowboy.start method to start listening for the specified hotword, and the Snowboy.stop method to stop listening. The startListening function uses the Speech.startAsync method from the expo-speech library to start listening for the command "close app". If the command is spoken, the app will close if it is currently in the "active" state by changing the app state to "background" using the AppState.changeAppState method. The stopListening function uses the Speech.stop method to stop the listening process. The useEffect hook is used to start and stop listening when the component is mounted and unmounted, respectively.
 
-this app is using a few different components to handle voice commands. Here's how the flow of the app seems to work:
 
-The main component, App, is rendered.
-Within App, the MicrophonePrompt component is rendered. This component is responsible for requesting microphone permission from the user and handling any errors that might occur while requesting permission.
-If the user grants permission, the MicrophonePermissionChecker component will render the VoiceCommandSelector component.
-The VoiceCommandSelector component uses the react-native-voice library to listen for voice input. When it detects speech, it sends the recognized text to the CommandList component.
-The CommandList component is a list of available voice commands that the app can respond to. It checks the recognized text against a list of known commands and runs the appropriate code for each command.
-In addition to these components, it looks like the app also has a CloseApp component that uses the Snowboy library to listen for the command "close app" and close the app if it is detected. It also has an OpenApp component that uses the react-native-snowboy library to listen for the command "open app" and open the app if it is detected.
