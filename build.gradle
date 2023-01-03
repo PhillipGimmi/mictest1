@@ -1,4 +1,1 @@
-dependencies {
-    // other dependencies here
-    implementation project(':react-native-permissions')
-}
+implementation 'com.reactnativecommunity.rnpermissions:rn-permissions:3.6.1'

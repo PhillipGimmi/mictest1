@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Linking, Alert } from 'react-native';
 import { Platform } from 'react-native';
-import Permissions from 'react-native-permissions';
+import * as Permissions from 'expo-permissions';
 import PermissionsAndroid from 'react-native-permissions';
 
 const requestMicrophonePermission = async () => {
@@ -58,41 +58,57 @@ const MicrophonePrompt = () => {
 
   useEffect(() => {
     const unsubscribe = Permissions.addListener(({ type, status }) => {
-    if (type === 'microphone') {
-    setHasPermission(status === 'granted');
-    setIsDenied(status === 'denied');
-    setIsBlocked(status === 'blocked');
-    }
+      if (type === 'microphone') {
+        setHasPermission(status === 'granted');
+        setIsDenied(status === 'denied');
+        setIsBlocked(status === 'blocked');
+      }
     });
     return unsubscribe;
-    }, []);
+  }, []);
 
-
-    if (hasPermission === null) {
-      return <Text style={{ textAlignVertical: "center", flex: 1, textAlign: "center" }}>Requesting microphone permission</Text>;
-    }
-    if (hasPermission === false && isBlocked === true) {
-      return (
-        <View style={{ backgroundColor: 'red' }}>
-          <Text>
-            You have blocked the microphone permission. Please go to your device's settings and allow
-            the app to access the microphone in order to use this app.
-          </Text>
-          <TouchableOpacity onPress={openSettings}>
-            <Text style={{ textAlignVertical: "center", flex: 1, textAlign: "center" }}>Open settings</Text>
-          </TouchableOpacity>
-        </View>
-      );
+  if (hasPermission === null) {
+    return <Text style={{ textAlignVertical: "center", flex: 1, textAlign: "center" }}>Requesting microphone permission</Text>;
   }
-  return (
-  <View style={{ flex: 1 }}>
-    <TouchableOpacity onPress={requestMicrophonePermission} style={{ backgroundColor: 'green' }}>
-      <Text style={{ textAlignVertical: "center", flex: 1, textAlign: "center" }}>
-        Toggle microphone permission
-      </Text>
-    </TouchableOpacity>
-  </View>
-  );
+  if (hasPermission === false && isBlocked === true) {
+    return (
+      <View style={{ backgroundColor: 'red' }}>
+        <Text>
+          You have blocked the microphone permission. Please go to your device's settings and allow
+          the app to access the microphone in order to use this app.
+        </Text>
+        <TouchableOpacity onPress={openSettings}>
+          <Text style={{ textAlignVertical: "center", flex: 1, textAlign: "center" }}>Open settings</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+if (hasPermission === null) {
+return <Text style={{ textAlignVertical: "center", flex: 1, textAlign: "center" }}>Requesting microphone permission</Text>;
 }
+if (hasPermission === false && isBlocked === true) {
+return (
+<View style={{ backgroundColor: 'red' }}>
+<Text>
+You have blocked the microphone permission. Please go to your device's settings and allow
+the app to access the microphone in order to use this app.
+</Text>
+<TouchableOpacity onPress={openSettings}>
+<Text style={{ textAlignVertical: "center", flex: 1, textAlign: "center" }}>Open settings</Text>
+</TouchableOpacity>
+</View>
+);
+}
+return (
+<View style={{ flex: 1 }}>
+<TouchableOpacity onPress={requestMicrophonePermission} style={{ backgroundColor: 'green' }}>
+<Text style={{ textAlignVertical: "center", flex: 1, textAlign: "center" }}>
+Toggle microphone permission
+</Text>
+</TouchableOpacity>
+</View>
+);
+};
 
 export default MicrophonePrompt;
