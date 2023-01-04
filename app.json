@@ -1,8 +1,7 @@
 {
   "expo": {
-    "scheme": "mictest",
-    "name": "mictest",
-    "slug": "mictest",
+    "name": "theNewMicTest",
+    "slug": "theNewMicTest",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,16 +19,23 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.example.mictest"
+      "bundleIdentifier": "com.gimmi45.theNewMicTest"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.gimmi45.theNewMicTest"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "main": "./App.js",
+    "extra": {
+      "eas": {
+        "projectId": "4a439455-fa1d-410c-8723-4071b0bb9f91"
+      }
     }
   }
 }

@@ -1,39 +1,59 @@
-import React from 'react';
-import CloseApp from "./commands/closeApp";
-import OpenApp from './commands/openApp';
+import React, { useState } from 'react';
+import { View, Button, Text } from 'react-native';
+import * as Speech from 'expo-speech';
 
 const CommandList = () => {
-  const startListening = (command) => {
+  const [command, setCommand] = useState(null);
+  const [response, setResponse] = useState(null);
+
+  const startListening = () => {
+    // Start the speech recognition process
+    Speech.startAsync({
+      onResult: (result) => {
+        // Get the transcription of the recognized speech
+        const transcription = result.value[0].transcription;
+        console.log('Speech recognized:', transcription);
+        setCommand(transcription);
+        executeCommand(transcription);
+      },
+    });
+  };
+
+  const executeCommand = (command) => {
+    console.log(`Executing command: ${command}`);
     switch (command) {
-      case 'open app':
-        return <OpenApp />;
-      case 'close app':
-        return <CloseApp />;
-      case 'set alarm':
-        // code to set an alarm
+      case 'hello':
+        setResponse('Hello! How are you today?');
         break;
-      case 'time':
-        // code to display the current time
+      case 'goodbye':
+        setResponse('Goodbye! Have a great day.');
         break;
-      case 'next meeting':
-        // code to display the user's next meeting
-        break;
-      case 'book an uber':
-        // code to book an Uber ride
-        break;
-      case 'uber eats':
-        // code to order food from Uber Eats
+      case 'what is your name':
+        setResponse('My name is Assistant.');
         break;
       default:
-        console.error('Invalid command');
+        setResponse(`I'm sorry, I didn't understand the command: ${command}`);
         break;
     }
   };
 
   return (
-    <>
-      {startListening()}
-    </>
+    <View>
+      {command && (
+        <Text>
+          Command: {command}
+        </Text>
+      )}
+      {response && (
+        <Text>
+          Response: {response}
+        </Text>
+      )}
+      <Button
+        title="Start Listening"
+        onPress={() => startListening()}
+      />
+    </View>
   );
 };
 
