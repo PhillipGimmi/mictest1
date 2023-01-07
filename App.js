@@ -1,20 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import MicrophonePrompt from './Components/MicrophonePrompt';
-import VoiceCommandSelector from './Components/VoiceCommandSelector';
-
+import MicPermissionPrompt from './Components/PermissionPrompt';
+import VoicePermissionPrompt from './Components/VoicePermissionPrompt';
+import VoiceTranscription from './Components/VoiceTranscription';
 
 const App = () => {
-  console.log('App component is rendered');
-  return (
-    <View>
-            <Text style={{flexDirection: 'row', height: 30, flexWrap: 'wrap', backgroundColor: 'green', alignSelf: 'center'}}>Hello world</Text>
-      <MicrophonePrompt>
-        <VoiceCommandSelector />
+const [permissionGranted, setPermissionGranted] = useState(false);
+const [transcription, setTranscription] = useState(null);
 
-      </MicrophonePrompt>
-    </View>
-  );
+console.log('App component is rendered');
+
+return (
+<View>
+  <MicPermissionPrompt>
+<VoicePermissionPrompt
+onPermissionGranted={() => {
+console.log('Permission granted');
+setPermissionGranted(true);
+}}
+>
+{permissionGranted ? (
+<>
+<VoiceTranscription
+onRecording={() => {
+console.log('Recording started');
+}}
+onStopped={(uri) => {
+console.log('Recording stopped');
+setTranscription(uri);
+}}
+/>
+<VoiceTranscription transcription={transcription} />
+
+</>
+) : null}
+</VoicePermissionPrompt>
+</MicPermissionPrompt>
+{permissionGranted && (
+<Text>Permission granted</Text>
+)}
+</View>
+);
 };
 
 export default App;

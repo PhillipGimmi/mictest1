@@ -1,23 +1,11 @@
 import React, { useState } from 'react';
-import { View, Button, Text } from 'react-native';
-import * as Speech from 'expo-speech';
+import { View, Text } from 'react-native';
+import OpenApp from './commands/openApp';
+import CloseApp from './commands/closeApp';
 
-const CommandList = () => {
+const CommandList = (props) => {
   const [command, setCommand] = useState(null);
   const [response, setResponse] = useState(null);
-
-  const startListening = () => {
-    // Start the speech recognition process
-    Speech.startAsync({
-      onResult: (result) => {
-        // Get the transcription of the recognized speech
-        const transcription = result.value[0].transcription;
-        console.log('Speech recognized:', transcription);
-        setCommand(transcription);
-        executeCommand(transcription);
-      },
-    });
-  };
 
   const executeCommand = (command) => {
     console.log(`Executing command: ${command}`);
@@ -30,6 +18,12 @@ const CommandList = () => {
         break;
       case 'what is your name':
         setResponse('My name is Assistant.');
+        break;
+      case 'open app':
+        OpenApp();
+        break;
+      case 'close app':
+        CloseApp();
         break;
       default:
         setResponse(`I'm sorry, I didn't understand the command: ${command}`);
@@ -49,10 +43,6 @@ const CommandList = () => {
           Response: {response}
         </Text>
       )}
-      <Button
-        title="Start Listening"
-        onPress={() => startListening()}
-      />
     </View>
   );
 };

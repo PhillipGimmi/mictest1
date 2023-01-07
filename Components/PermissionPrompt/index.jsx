@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Linking, Alert, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Linking} from 'react-native';
 import { Audio } from 'expo-av';
-import VoiceCommandSelector from '../VoiceCommandSelector'; // make sure this import is correct
+import VoiceTrigger from '../VoiceTrigger'; // make sure this import is correct
 
-class MicrophonePrompt extends React.Component {
+class MicPermissionPrompt extends React.Component {
   state = {
     isDenied: false,
     isBlocked: false,
@@ -77,9 +77,9 @@ class MicrophonePrompt extends React.Component {
     }
     return (
       <View>
-        <VoiceCommandSelector onResult={this.props.onResult} />
+        <VoiceTrigger onTrigger={this.props.onTrigger} />
       </View>
     );
   }
 }
-export default MicrophonePrompt;
+export default MicPermissionPrompt;

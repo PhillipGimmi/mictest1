@@ -1,7 +1,11 @@
 # mictest1
 
-```
-./AndroidManifest.xml
+
+``````````````````````````````````````````````
+Expo App SiteMap
+``````````````````````````````````````````````
+
+
 ./App.js
 ./app.json
 ./assets/adaptive-icon.png
@@ -9,77 +13,44 @@
 ./assets/icon.png
 ./assets/splash.png
 ./babel.config.js
-./build.gradle
 ./Components/CommandList/commands/closeApp.jsx
 ./Components/CommandList/commands/openApp.jsx
 ./Components/CommandList/index.jsx
-./Components/GrantPermissionButton/index.jsx
 ./Components/MicrophonePrompt/index.jsx
 ./Components/VoiceCommandSelector/index.jsx
-./Components/VoiceDetector/index.jsx
-./Info.plist
 ./package-lock.json
 ./package.json
-./settings.gradle
-```
 
-```
+
+`````````````````````````````````````````````
+The App Summaray Flow
+`````````````````````````````````````````````
+
+
+In summary, the app flow is as follows:
+
+1) The App component is rendered.
+2) The MicrophonePrompt component is rendered and calls the requestPermission function to request microphone permission.
+3) If permission is granted, the onPermissionGranted callback is called which updates the permissionGranted state variable in the App component and renders the VoiceCommandSelector component.
+4) The VoiceCommandSelector component starts listening for voice commands and processes the recognized speech using the executeCommand function.
+5) The executeCommand function determines the appropriate response to the command and updates the response state variable.
+6) The user can start or stop listening for voice commands using the button in the VoiceCommandSelector component.
+7) If the user issues a command to open or close the app, the OpenApp or CloseApp function is called, respectively.
+
+
+```````````````````````````
 THE APP FLOW
-
-The app is launched and the App component is rendered.
-The App component renders the MicrophonePrompt component and the VoiceCommandSelector component.
-The MicrophonePrompt component checks if the app has permission to access the microphone. If permission has been granted, it will render its children (in this case, the VoiceCommandSelector component). If permission has not been granted, it will prompt the user to grant permission.
-The VoiceCommandSelector component has a button that allows the user to start or stop listening for voice commands. When the user starts listening, the component uses the react-native-voice library to recognize speech and passes the recognized speech to the CommandList component.
-The CommandList component receives the recognized speech and checks for a matching command in its startListening function. If it finds a matching command, it will render the corresponding component. In this case, if the recognized speech is "close app", it will render the CloseApp component.
-The CloseApp component will close the app on Android devices by calling the BackHandler.exitApp() method, and on iOS devices it will show an alert message asking the user to press the home button to close the app.
-
-```
+```````````````````````````
 
 
-The App component is a functional component in a React Native app that is designed to use the device's microphone to record audio. It consists of a single View element that contains the MicrophonePrompt component and the VoiceCommandSelector component as children.
+The app is a voice command app that allows the user to issue voice commands to the app and receive a response. The app has two main components: App and MicrophonePrompt.
 
-The View element is a container that is used to lay out and style the components that are rendered inside it. In this case, the View element is being used as a simple container for the MicrophonePrompt and VoiceCommandSelector components.
+The App component is the root component of the app and is responsible for rendering the main interface of the app. When the App component is rendered, it displays a greeting message and a MicrophonePrompt component. It also has state variables for permissionGranted and result, which are used to store the microphone permission status and the result of the voice command, respectively.
 
-The MicrophonePrompt component is responsible for handling the microphone permission flow for the app. It is designed to request access to the microphone on both iOS and Android devices, and to display a message to the user if the permission has been denied.
+The MicrophonePrompt component is responsible for requesting microphone permission from the user and rendering the VoiceCommandSelector component when permission is granted. When the MicrophonePrompt component is mounted, it calls the requestPermission function which attempts to request microphone permission from the user. If permission is granted, the onPermissionGranted callback function is called which updates the permissionGranted state variable in the App component to true and renders the VoiceCommandSelector component. If permission is denied or blocked, the MicrophonePrompt component displays a message to the user telling them that microphone access is required and provides a button to open the device's settings where the user can change the microphone access permission.
 
-The VoiceCommandSelector component is not shown in the code that you provided, so it is not clear what its purpose is. However, based on its name, it is likely that it is used to allow the user to select a voice command that will be recorded and processed by the app.
+The VoiceCommandSelector component is responsible for listening for voice commands and executing them. When the component is rendered, it starts listening for voice commands and processes the recognized speech using the executeCommand function. The executeCommand function determines the appropriate response to the command and updates the response state variable with the response. The VoiceCommandSelector component also has a button that allows the user to start or stop listening for voice commands.
 
-The App component is exported as the default export, which means that it can be imported and used in other parts of the app as needed.
-
-The MicrophonePrompt component is a functional component in a React Native app that is designed to handle the microphone permission flow for the app. It uses the expo-permissions library to request access to the microphone on both iOS and Android devices, and to display a message to the user if the permission has been denied.
-
-The component uses the useState and useEffect hooks from the react library to manage its state and handle side effects. The useState hook is used to create three state variables: isDenied, isBlocked, and hasPermission. These state variables are used to store the current status of the microphone permission request.
-
-The useEffect hook is used to perform the following tasks:
-
-Request the microphone permission when the component is first rendered. This is done by calling the requestMicrophonePermission function, which returns a promise that resolves to the current status of the permission request. The status is then used to update the hasPermission, isDenied, and isBlocked state variables.
-
-Subscribe to changes in the microphone permission status. This is done by calling the Permissions.addListener function, which returns an unsubscribe function that can be used to stop listening for permission changes. The permission status is updated in the same way as in step 1 whenever a change is detected.
-Based on the current values of the hasPermission, isDenied, and isBlocked state variables, the component will render one of the following:
-
-A message indicating that the microphone permission is being requested.
-A message and a button to open the device's settings if the microphone permission has been blocked by the user.
-A button to request the
-The VoiceCommandSelector component is a functional component in a React Native app that is designed to allow the user to start and stop listening for voice commands. It uses the react-native-voice library to enable speech recognition on the device.
-
-The component uses the useState hook from the react library to manage its state. The isListening state variable is used to store the current listening status of the component.
-
-The component has two functions: startListening and stopListening. The startListening function uses the onSpeechRecognized function from the react-native-voice library to register a callback that is called when speech is recognized. It also calls the startRecognizing function from the react-native-voice library to start listening for speech. Finally, it updates the isListening state variable to true.
-
-The stopListening function calls the stopRecognizing function from the react-native-voice library to stop listening for speech, and updates the isListening state variable to false.
-
-Based on the current value of the isListening state variable, the component will render either a "Start Listening" button or a "Stop Listening" button. When the "Start Listening" button is pressed, the startListening function is called. When the "Stop Listening" button is pressed, the stopListening function is called.
-
-The component also renders the MicrophonePermissionChecker component, which is responsible for handling the microphone permission flow for the app. The onPermissionGranted prop is used to specify a callback function that is called when the microphone
-
-
-The CommandList component is a functional component in a React Native app that is designed to handle a list of voice commands. It has a single function, startListening, which takes in a command argument and returns a different component based on the value of the command argument. The command argument represents the voice command that was recognized by the app.
-
-The startListening function uses a switch statement to check the value of the command argument and returns a different component based on the value. For example, if the value of the command argument is 'open app', it will return the OpenApp component. If the value of the command argument is 'close app', it will return the CloseApp component.
-
-The CommandList component also has a default case in the switch statement, which logs an error message to the console if the value of the command argument is not recognized.
-
-The CommandList component is designed to be used in conjunction with the VoiceCommandSelector component, which is responsible for starting and stopping the speech recognition process. When the app recognizes a voice command, it is passed to the CommandList component via the startListening function, which determines which component to render based on the value of the command.
-This code defines a CloseApp component in React Native that uses the Snowboy hotword detection library to listen for the command "close app" and then closes the app when it is spoken. It does this by using the Snowboy.start method to start listening for the specified hotword, and the Snowboy.stop method to stop listening. The startListening function uses the Speech.startAsync method from the expo-speech library to start listening for the command "close app". If the command is spoken, the app will close if it is currently in the "active" state by changing the app state to "background" using the AppState.changeAppState method. The stopListening function uses the Speech.stop method to stop the listening process. The useEffect hook is used to start and stop listening when the component is mounted and unmounted, respectively.
+The CommandList component is a list of possible voice commands and their corresponding responses. It has a switch statement that checks the value of the command prop and executes the appropriate code for the command. The OpenApp and CloseApp functions are called when the corresponding commands are issued. The OpenApp function attempts to open the app with the URL "mictest://" and displays an error message if the app is not installed. The CloseApp function closes the app, with the exact behavior depending on the platform. On iOS devices, it displays an alert telling the user to press the home button to close the app. On Android devices, it calls the BackHandler.exitApp function which closes the app.
 
 
