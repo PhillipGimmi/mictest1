@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Linking} from 'react-native';
 import { Audio } from 'expo-av';
-import VoiceTrigger from '../VoiceTrigger'; // make sure this import is correct
+
 
 class MicPermissionPrompt extends React.Component {
   state = {
@@ -76,9 +76,7 @@ class MicPermissionPrompt extends React.Component {
       );
     }
     return (
-      <View>
-        <VoiceTrigger onTrigger={this.props.onTrigger} />
-      </View>
+<></>
     );
   }
 }
